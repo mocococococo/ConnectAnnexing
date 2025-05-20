@@ -11,6 +11,7 @@ class BoardInfo : MonoBehaviour
     public const int EMPTY = 0;
     public const int PLAYER_1 = 1;
     public const int PLAYER_2 = 2;
+    public const int NEXT = 3;
 
     //ボードの2次元配列
     private int[,] board = new int[ROWS, COLS];
