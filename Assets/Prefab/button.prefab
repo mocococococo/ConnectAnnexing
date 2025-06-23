@@ -103,5 +103,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unpressedColor: {r: 0.38, g: 0.82, b: 1, a: 1}
-  pressedColor: {r: 1, g: 0.84, b: 0, a: 1}
+  pressedColor: {r: 1, g: 0, b: 0.015983105, a: 1}
   pressTriggerName: Press
