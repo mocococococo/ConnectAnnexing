@@ -4,6 +4,7 @@ using UnityEngine;
 class Winner : MonoRole
 {
     public int winPoints = 2;
+    public string roleName = "勝ち屋";
 
     protected override void Start()
     {
@@ -11,8 +12,19 @@ class Winner : MonoRole
         Debug.Log("Role initialized: " + roleName);
     }
 
-    public override void WinningCondition()
+    public override bool WinningConditionMyTurn()
     {
-        
+        int x = BoardInfo.GetLastX();
+        int y = BoardInfo.GetLastY();
+        if (base.CountNewConnect4(x, y) > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override bool WinningConditionOpoTurn()
+    {
+        return base.WinningConditionOpoTurn();
     }
 }
