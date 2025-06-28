@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class  : MonoRole
+class Othello : MonoRole
 {
     public int winPoints = 5;
     public string roleName = "ÉIÉZÉç";
