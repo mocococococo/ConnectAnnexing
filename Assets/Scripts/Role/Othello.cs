@@ -19,21 +19,21 @@ class Othello : MonoRole
         int opo = BoardInfo.GetCell(BoardInfo.GetPreLastX(), BoardInfo.GetPreLastY());
         //横
         //左
-        if (x < 6 &&
+        if (x <= 5 &&
             BoardInfo.GetCell(x + 1, y) == opo &&
             BoardInfo.GetCell(x + 2, y) == opo &&
             BoardInfo.GetCell(x + 3, y) == opo &&
             BoardInfo.GetCell(x + 4, y) == my)
             return true;
         //右
-        if (x > 3 &&
+        if (x >= 4 &&
             BoardInfo.GetCell(x - 1, y) == opo &&
             BoardInfo.GetCell(x - 2, y) == opo &&
             BoardInfo.GetCell(x - 3, y) == opo &&
             BoardInfo.GetCell(x - 4, y) == my)
             return true;
         //縦
-        if (y > 3 &&
+        if (y >= 4 &&
             BoardInfo.GetCell(x, y - 1) == opo &&
             BoardInfo.GetCell(x, y - 2) == opo &&
             BoardInfo.GetCell(x, y -3) == opo &&
@@ -41,14 +41,14 @@ class Othello : MonoRole
             return true;
         //スラッシュ
         //右上
-        if (x < 6 && y < 6 &&
+        if (x >= 4 && y >= 4 &&
             BoardInfo.GetCell(x - 1, y - 1) == opo &&
             BoardInfo.GetCell(x - 2, y - 2) == opo &&
             BoardInfo.GetCell(x - 3, y - 3) == opo &&
             BoardInfo.GetCell(x - 4, y - 4) == my)
             return true;
         //左下
-        if (x > 3 && y > 3 &&
+        if (x <= 5 && y <= 5 &&
             BoardInfo.GetCell(x + 1, y + 1) == opo &&
             BoardInfo.GetCell(x + 2, y + 2) == opo &&
             BoardInfo.GetCell(x + 3, y + 3) == opo &&
@@ -56,14 +56,14 @@ class Othello : MonoRole
             return true;
         //バックスラッシュ
         //右下
-        if (x > 3 && y < 6 &&
+        if (x >= 4 && y <= 5 &&
             BoardInfo.GetCell(x - 1, y + 1) == opo &&
             BoardInfo.GetCell(x - 2, y + 2) == opo &&
             BoardInfo.GetCell(x - 3, y + 3) == opo &&
             BoardInfo.GetCell(x - 4, y + 4) == my)
             return true;
         //左上
-        if (x < 6 && y > 3 &&
+        if (x <= 5 && y >= 4 &&
             BoardInfo.GetCell(x + 1, y - 1) == opo &&
             BoardInfo.GetCell(x + 2, y - 2) == opo &&
             BoardInfo.GetCell(x + 3, y - 3) == opo &&
