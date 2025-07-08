@@ -61,7 +61,7 @@ PrefabInstance:
       addedObject: {fileID: 5847764279593845019}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6802fe1cbeed7a845b96131b5da46227, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3491508593756366885}
+      addedObject: {fileID: -4921516911966402185}
   m_SourcePrefab: {fileID: 100100000, guid: 6802fe1cbeed7a845b96131b5da46227, type: 3}
 --- !u!1 &3132018661221415771 stripped
 GameObject:
@@ -90,7 +90,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3491508593756366885
+--- !u!114 &-4921516911966402185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3132018661221415771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61cd390f7a986834ebd3772e87841159, type: 3}
+  m_Script: {fileID: 11500000, guid: e1f3b16b4bd27db4d88ae22c46f05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unpressedColor: {r: 0.38, g: 0.82, b: 1, a: 1}
-  pressedColor: {r: 1, g: 0, b: 0.015983105, a: 1}
-  pressTriggerName: Press
+  row: 0
+  col: 0
+  anim: {fileID: 5847764279593845019}
