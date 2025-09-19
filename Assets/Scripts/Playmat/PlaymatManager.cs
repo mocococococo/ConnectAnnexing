@@ -1,79 +1,63 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlaymatManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public int rows = 3;
-    public int cols = 4;
-    [SerializeField] private GameObject[] areaList;
-    private GameObject[,] areas;
- // ★今どこを選択しているか（初期値を0,0にしている例）
-    private int currentY = 0;
-    private int currentX = 0;
+    // 方向定義
+    enum Direction { Up, Left, Down, Right }
 
-    void Start()
+    // エリア数
+    private const int AreaCount = 12;
+
+    // 遷移表（エリアごとにUp/Left/Down/Rightの移動先インデックス）
+    private readonly int?[,] moveTable = new int?[,]
     {
-        InitAreas();
-    }
-    // Update is called once per frame
+        //    ↑      ←      ↓      →
+        {   9,     2,     7,     1  }, // 0: OpponentBonusArrayDisplay
+        {  10,     0,     4,     2  }, // 1: OpponentCardSetArea
+        {   8,     1,     5,     0  }, // 2: OpponentTrashArea
+        { null,  null,  null,  null }, // 3: Null
+        {   1,     7,    10,     5  }, // 4: ConnectFourBoard
+        {   2,     4,     6,     0  }, // 5: OpponentScoreDisplay
+        {   5,     4,     8,     7  }, // 6: DeckDisplay
+        {   0,     6,     9,     4  }, // 7: PlayerScoreDisplay
+        {   6,     4,    2,     9  }, // 8: PlayerBonusArrayDisplay
+        {   7,     8,     0,    10 }, // 9: PlayerTrashArea
+        {   4,     9,     1,     8 }, //10: PlayerCardSetArea
+        { null,  null,  null,  null }  //11: Null
+    };
+
+    [SerializeField] private GameObject[] areaList;
+    private int currentIndex = 0;
+
     void Update()
     {
-        HandleInput();
-        HighlightCurrentArea();
-    }
-    //プレイマットの各種場所を配列で管理
-    private void InitAreas()
-    {
-        areas = new GameObject[rows, cols];
-        for (int y = 0; y < rows; y++)
-        {
-            for (int x = 0; x < cols; x++)
-            {
-                areas[y, x] = areaList[y * cols + x];
-            }
-        }
-    }
-   private void HandleInput()
-    {
-        int nextY = currentY;
-        int nextX = currentX;
+        int? nextIndex = null;
 
-        // WASD/矢印キーで移動
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            nextY--;
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            nextY++;
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            nextX--;
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            nextX++;
+            nextIndex = moveTable[currentIndex, (int)Direction.Up];
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            nextIndex = moveTable[currentIndex, (int)Direction.Left];
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            nextIndex = moveTable[currentIndex, (int)Direction.Down];
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            nextIndex = moveTable[currentIndex, (int)Direction.Right];
 
-        // 範囲内かつnullでない場所まで移動
-        if (IsValidArea(nextY, nextX))
+        if (nextIndex.HasValue && areaList[nextIndex.Value] != null)
         {
-            currentY = nextY;
-            currentX = nextX;
+            currentIndex = nextIndex.Value;
+            HighlightCurrentArea();
         }
-    }
-
-    private bool IsValidArea(int y, int x)
-    {
-        return y >= 0 && y < rows && x >= 0 && x < cols && areas[y, x] != null;
     }
 
     private void HighlightCurrentArea()
     {
-        // 全エリアの色をリセット（例）
-        for (int y = 0; y < rows; y++)
+        for (int i = 0; i < areaList.Length; i++)
         {
-            for (int x = 0; x < cols; x++)
-            {
-                if (areas[y, x] != null)
-                    areas[y, x].GetComponent<Renderer>().material.color = Color.white;
-            }
+            if (areaList[i] == null) continue;
+            var renderer = areaList[i].GetComponent<Renderer>();
+            if (renderer != null)
+                renderer.material.color = (i == currentIndex) ? Color.white : Color.black;
         }
-        // 選択中をハイライト
-        if (areas[currentY, currentX] != null)
-            areas[currentY, currentX].GetComponent<Renderer>().material.color = Color.yellow;
     }
 }
